@@ -9,7 +9,7 @@ importScripts('https://www.gstatic.com/firebasejs/5.4.1/firebase-messaging.js');
 // Initialize the Firebase app in the service worker by passing in the
 // messagingSenderId.
 firebase.initializeApp({
-  'messagingSenderId': '631853451147'
+  'messagingSenderId': '996791855233'
 });
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
@@ -30,8 +30,8 @@ const messaging = firebase.messaging();
 // });
 
 //Action to be performed when notification is clicked
-self.addEventListener('notificationclick', function (event) {
-  console.log("mydasdasldhasldhkl", event)
+self.addEventListener('notificationclick', function(event) {
+console.log("mydasdasldhasldhkl",event)
   var url = 'http://127.0.0.1:8887';
 
   event.notification.close(); //Close the notification
@@ -45,13 +45,13 @@ self.addEventListener('notificationclick', function (event) {
 
 
 //Push notification irrespective of page is open or not
-self.addEventListener('push', function (event) {
-  console.log(`event`);
-  console.log(event);
-  if (event.data) {
+self.addEventListener('push', function(event) {
+	console.log(`event`);
+	console.log(event);
+if (event.data) {
     console.log('This push event has data: ', event.data.text());
     console.log(event);
-
+    
     var title = event.data.json().notification.title
 
     var body = {
@@ -70,5 +70,5 @@ self.addEventListener('push', function (event) {
     console.log('This push event has no data.');
   }
 
-
+ 
 });

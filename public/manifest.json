@@ -1,11 +1,16 @@
 {
-  "name": "Bulletin Board",
-  "short_name": "Bt Board",
-  "description": "Progressive Web Apps for TCS Bulletin Board",
-  "start_url": "./index?utm=homescreen",
+  "name": "Always Retail Application",
+  "short_name": "Always",
+  "description": "Moneytransfer and recharge applciation ",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f5f5f5",
   "theme_color": "#f5f5f5",
-  "gcm_sender_id": "103953800507"
+ 
+  "author": {
+    "name": "Arihant Chhajed",
+    "twitter": "https://twitter.com/arcsoftech",
+    "github": "https://github.com/arcsoftech",
+  },
+   "gcm_sender_id": "103953800507"
 }
