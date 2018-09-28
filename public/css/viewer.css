@@ -2228,3 +2228,24 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
     display: none;
   }
 }
+
+#messageBoard {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+#messageBoardContent {
+  background: rgba(255,0,0,0.5);
+  width: 1080px;
+  margin: 50px auto;
+  padding: 10px 50px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 30px;
+}

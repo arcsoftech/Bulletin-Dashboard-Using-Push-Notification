@@ -28,17 +28,16 @@ const NotifyHandler = (userIDArray, message) => {
 
 module.exports = Subscriptions => {
   const push = new Push();
-  push.on('msg', data => {
-    console.log(data)
+  push.on('msg', (msgData, type) => {
     var message = {
       data: {
-        score: '850',
-        time: '2:45'
+        message: msgData.message,
+        type: type
       },
       notification: {
-        title: 'Message Alert',
-        body: 'Message alert from bulletin board',
-        icon: 'images/notify.png'
+        title: 'Bulletin Board Alert',
+        body:  'New admin notification.',
+        icon:  'images/notify.png'
       }
     }
     push.emit('notify', message)
@@ -50,8 +49,8 @@ module.exports = Subscriptions => {
         time: '2:45'
       },
       notification: {
-        title: 'Message Alert',
-        body: 'New Presentation',
+        title: 'Bulletin Board Alert',
+        body: 'New presentation uploaded.',
         icon: 'images/notify.png'
       }
     }

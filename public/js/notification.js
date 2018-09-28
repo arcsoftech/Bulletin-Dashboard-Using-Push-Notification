@@ -1,13 +1,22 @@
 (function (window) {
   'use strict';
 
-
-
   //handle notification when you are on foreground
   messaging.onMessage(function (payload) {
     console.log('Message received. ', payload);
-    location.reload();
+    const type = payload.data.type;
+    window.localStorage.setItem('bulletinType', type);
+    if(type == 'message') {
+      window.localStorage.setItem('bulletinMsg', JSON.stringify(payload.data.message));
+      $('#messageBoardContent').html(payload.data.message);
+      $('#outerContainer').hide();
+      $('#messageBoard').show();
+    }
+    else {
+      location.reload();
+    }
   });
+
   //To check `push notification` is supported or not
   function isPushSupported() {
 
@@ -24,6 +33,7 @@
     messaging.getToken().then(function (subscription_id) {
       if (subscription_id) {
         console.log(subscription_id);
+        subscribePush();
         //changePushStatus(true);
       } else {
         requestPermission();
@@ -127,7 +137,6 @@
   }
 
   function requestPermission() {
-
     swal({
       title: 'Enable Push Notification',
       text: "Push notification is require so that we can send you the status of transaction in realtime.",
