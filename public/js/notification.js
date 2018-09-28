@@ -13,7 +13,7 @@
         return;
       }
 
-      if (!('PushManager' in window)) {
+      if (typeof Notification === 'undefined') {
         alert('Sorry, Push notification isn\'t supported in your browser.');
         return;
       }
@@ -25,7 +25,7 @@
               changePushStatus(false);
             }
           }).catch(function(err) {
-            console.error('Error occurred while enabling push ', err);
+            console.error('Error occurred while enabling push ', error);
           }); 
     }
     // Ask User if he/she wants to subscribe to push notifications and then
@@ -40,7 +40,6 @@
         {
           messaging.getToken().then(function(subscription_id) {
             if (subscription_id) {
-              toast('Subscribed successfully.');
               console.info('Push notification subscribed.');
               console.log("Subscription Id",subscription_id)
               saveSubscriptionID(subscription_id);
@@ -68,7 +67,7 @@
           }
           messaging.deleteToken(subscription_id).then(function() {
             console.log('Token deleted.');
-            toast('Unsubscribed successfully.');
+            
                   console.info('Push notification unsubscribed.');
                   console.log(subscription_id);
                   deleteSubscriptionID(subscription_id);
@@ -82,30 +81,22 @@
         });
     }
     //To change status
-    function changePushStatus(status) {	
-      // fabPushElement.dataset.checked = status;
-      // fabPushElement.checked = status;
-      // if (status) {
-      //   fabPushElement.classList.add('active');
-      //   fabPushImgElement.src = '../images/push-on.png';
-      // }
-      // else {
-      //  fabPushElement.classList.remove('active');
-      //  fabPushImgElement.src = '../images/push-off.png';
-      // }
+    function changePushStatus(status) {
+		
+      fabPushElement.dataset.checked = status;
+      fabPushElement.checked = status;
+      if (status) {
+        fabPushElement.classList.add('active');
+        fabPushImgElement.src = '../images/push-on.png';
+      }
+      else {
+       fabPushElement.classList.remove('active');
+       fabPushImgElement.src = '../images/push-off.png';
+      }
     }
   
     //Click event for subscribe push
-    // fabPushElement.addEventListener('click', function () {
-    //   var isSubscribed = (fabPushElement.dataset.checked === 'true');
-    //   if (isSubscribed) {
-    //     unsubscribePush();
-    //   }
-    //   else {
-    //     subscribePush();
-    //   }
-    // });
-  
+ 
     function saveSubscriptionID(subscription_id) {
       if (!isTokenSentToServer()) {
         console.log('Sending token to server...',subscription_id);
@@ -136,15 +127,29 @@
     }
  
     function requestPermission() {
-      console.log('Requesting permission...');
-      // [START request_permission]
-      messaging.requestPermission().then(function() {
-        console.log('Notification permission granted.');
-        subscribePush();
-        // [END_EXCLUDE]
-      }).catch(function(err) {
-        console.log('Unable to get permission to notify.', err);
-      });
+
+      swal({
+        title: 'Enable Push Notification',
+        text: "Push notification is require so that we can send you the status of transaction in realtime.",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Enable'
+      }).then((result) => {
+        if (result.value) {
+          console.log('Requesting permission...');
+          // [START request_permission]
+          messaging.requestPermission().then(function() {
+            console.log('Notification permission granted.');
+            subscribePush();
+            // [END_EXCLUDE]
+          }).catch(function(err) {
+            console.log('Unable to get permission to notify.', err);
+          });
+        }
+      })
+    
       // [END request_permission]
     }
     function isTokenSentToServer() {
@@ -157,11 +162,9 @@
     //handle notification when you are on foreground
     messaging.onMessage(function(payload) {
       console.log('Message received. ', payload);
-      var data=JSON.stringify(payload.data);
-      var html = '  <div class="alert alert-info alert-dismissible">';
-      html+= '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-      html += '<strong>Info!</strong> '+ data;
-      html += '  </div>';
+      var html='<a href="javascript:void(0);" class="dropdown-item notify-item">';
+      html+= '<p class="notify-details">'+ payload.notification.title;
+      html+='<small>'+payload.notification.body+ '</small></p>';
       document.getElementById("notification-alert").innerHTML = html;
     });
     messaging.onTokenRefresh(function() {
@@ -182,6 +185,25 @@
       
     });
     isPushSupported(); //Check for push notification support
+
+    messaging.getToken().then(function(subscription_id) {
+      if (subscription_id) {
+        
+        console.info('Push notification subscribed.');
+        console.log("Subscription Id",subscription_id)
+        saveSubscriptionID(subscription_id);
+        changePushStatus(true);
+      } else {
+        // Show permission request.
+        console.log('No Instance ID token available. Request permission to generate one.');
+        // Show permission UI.
+        setTokenSentToServer(false);
+        requestPermission();
+      }
+    }).catch(function(err) {
+      changePushStatus(false);
+      console.error('Push notification subscription error: ', err);
+    });
   })(window);
   
  
