@@ -1,0 +1,11 @@
+{
+  "name": "Bulletin Board",
+  "short_name": "Bt Board",
+  "description": "Progressive Web Apps for TCS Bulletin Board",
+  "start_url": "./index?utm=homescreen",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f5f5",
+  "theme_color": "#f5f5f5",
+  "gcm_sender_id": "103953800507"
+}
