@@ -1,13 +1,13 @@
 (function (window) {
     'use strict';
-  
+
     //Push notification button
     var fabPushElement = document.querySelector('.fab__push');
     var fabPushImgElement = document.querySelector('.fab__image');
-  
+
     //To check `push notification` is supported or not
     function isPushSupported() {
-  
+
       if (Notification.permission === 'denied') {
         alert('User has blocked push notification.');
         return;
@@ -20,18 +20,18 @@
          messaging.getToken().then(function(subscription_id) {
             if (subscription_id) {
               console.log(subscription_id);
-              changePushStatus(true);
+                //changePushStatus(true);
             } else {
-              changePushStatus(false);
+                //changePushStatus(false);
             }
           }).catch(function(err) {
-            console.error('Error occurred while enabling push ', error);
-          }); 
+            console.error('Error occurred while enabling push ', err);
+          });
     }
     // Ask User if he/she wants to subscribe to push notifications and then
     // ..subscribe and send push notification
     function subscribePush() {
-   
+
         if (Notification.permission === 'denied') {
           alert('User has blocked push notification.');
           return;
@@ -43,7 +43,7 @@
               console.info('Push notification subscribed.');
               console.log("Subscription Id",subscription_id)
               saveSubscriptionID(subscription_id);
-              changePushStatus(true);
+                //changePushStatus(true);
             } else {
               // Show permission request.
               console.log('No Instance ID token available. Request permission to generate one.');
@@ -52,7 +52,7 @@
               requestPermission();
             }
           }).catch(function(err) {
-            changePushStatus(false);
+              //changePushStatus(false);
             console.error('Push notification subscription error: ', err);
           });
         }
@@ -67,11 +67,11 @@
           }
           messaging.deleteToken(subscription_id).then(function() {
             console.log('Token deleted.');
-            
+
                   console.info('Push notification unsubscribed.');
                   console.log(subscription_id);
                   deleteSubscriptionID(subscription_id);
-                  changePushStatus(false);
+                    //changePushStatus(false);
           }).catch(function(err) {
             console.log('Unable to delete token. ', err);
           });
@@ -82,7 +82,7 @@
     }
     //To change status
     function changePushStatus(status) {
-		
+
       fabPushElement.dataset.checked = status;
       fabPushElement.checked = status;
       if (status) {
@@ -94,9 +94,9 @@
        fabPushImgElement.src = '../images/push-off.png';
       }
     }
-  
+
     //Click event for subscribe push
- 
+
     function saveSubscriptionID(subscription_id) {
       if (!isTokenSentToServer()) {
         console.log('Sending token to server...',subscription_id);
@@ -125,7 +125,7 @@
       }).then(function(res){console.log(res);
         setTokenSentToServer(false);}).catch(function(err){console.log("Error deleting subscription id",err)});
     }
- 
+
     function requestPermission() {
 
       swal({
@@ -149,7 +149,7 @@
           });
         }
       })
-    
+
       // [END request_permission]
     }
     function isTokenSentToServer() {
@@ -173,7 +173,7 @@
         // Indicate that the new Instance ID token has not yet been sent to the
         // app server.
         setTokenSentToServer(false);
-        changePushStatus(false);
+          //changePushStatus(false);
         // Send Instance ID token to app server.
         saveSubscriptionID(refreshedToken);
         // [START_EXCLUDE]
@@ -182,17 +182,17 @@
       }).catch(function(err) {
         console.log('Unable to retrieve refreshed token ', err);
       });
-      
+
     });
     isPushSupported(); //Check for push notification support
 
     messaging.getToken().then(function(subscription_id) {
       if (subscription_id) {
-        
+
         console.info('Push notification subscribed.');
         console.log("Subscription Id",subscription_id)
         saveSubscriptionID(subscription_id);
-        changePushStatus(true);
+          //changePushStatus(true);
       } else {
         // Show permission request.
         console.log('No Instance ID token available. Request permission to generate one.');
@@ -201,9 +201,9 @@
         requestPermission();
       }
     }).catch(function(err) {
-      changePushStatus(false);
+        //changePushStatus(false);
       console.error('Push notification subscription error: ', err);
     });
   })(window);
-  
- 
+
+
