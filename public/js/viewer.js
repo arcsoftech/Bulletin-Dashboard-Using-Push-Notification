@@ -10065,7 +10065,7 @@ exports.ViewHistory = ViewHistory;
 "use strict";
 
 
-var DEFAULT_URL = '/assets/Quarterly_Report_Sep 18_V1.4.pdf';
+var DEFAULT_URL = '/assets/bulletin_board.pdf';
 var pdfjsWebApp = void 0;
 {
   pdfjsWebApp = __webpack_require__(4);

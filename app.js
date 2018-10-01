@@ -22,7 +22,7 @@ app.engine(
   exphbs.express4({
     extname: '.hbs',
     defaultLayout: __dirname + '/views/layouts/default.hbs',
-    partialsDir: __dirname + '/views/partials',
+    // partialsDir: __dirname + '/views/partials',
     layoutsDir: __dirname + '/views/layouts'
   })
 );

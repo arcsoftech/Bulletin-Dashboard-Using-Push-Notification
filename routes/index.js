@@ -41,7 +41,7 @@ module.exports = (Passport, Messages, Subscriptions) => {
       cb(null, 'public/assets/')
     },
     filename: (req, file, cb) => {
-      cb(null, 'Quarterly_Report_Sep 18_V1.4.pdf')
+      cb(null, 'bulletin_board.pdf')
     }
   });
   const upload = multer({
