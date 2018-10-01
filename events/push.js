@@ -42,11 +42,10 @@ module.exports = Subscriptions => {
     }
     push.emit('notify', message)
   })
-  push.on('fileUpload', data => {
+  push.on('fileUpload', type => {
     var message = {
       data: {
-        score: '850',
-        time: '2:45'
+        type: type
       },
       notification: {
         title: 'Bulletin Board Alert',

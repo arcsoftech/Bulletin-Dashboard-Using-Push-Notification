@@ -5,8 +5,21 @@ module.exports = (Messages, Subscriptions) => {
     return {
         GET: {
             indexHandler: (req, res, next) => {
-                res.render('index', {
-                    page_title: ''
+                Messages.find({
+                    attributes: ['message', 'type'],
+                    order: [
+                        ['id', 'DESC'],
+                    ],
+                    raw: true,
+                }).then(function (result) {
+                    console.log(result);
+                    res.render('index', {
+                        page_title: '',
+                        message: result.message,
+                        type: result.type
+                    });
+                }).error(function (err) {
+                    console.log("Error:" + err);
                 });
             },
             logoutHandler: (req, res) => {
@@ -54,9 +67,18 @@ module.exports = (Messages, Subscriptions) => {
                 });
             },
             fileUploadHandler: (req, res) => {
-                push.emit('fileUpload', "dasdasdas");
-                req.flash('success', 'PDF uploaded successfully.');
-                res.redirect('dashboard');
+                let data = {
+                    type: 'bulletin_pdf',
+                };
+                Messages.create(data)
+                    .then((messageRow, created) => {
+                        push.emit('fileUpload', 'bulletin_pdf');
+                        req.flash('success', 'PDF uploaded successfully.');
+                        res.redirect('dashboard');
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    });
             },
             registerHandler: (req, res) => {
                 console.log("HELLO WORLD");
@@ -65,15 +87,15 @@ module.exports = (Messages, Subscriptions) => {
             pushMessageHandler: (req, res) => {
                 //Checking connection status
                 let data = {
+                    type: 'bulletin_alert',
                     message: req.body.message
                 };
-
-
                 Messages.create(data)
                     .then((messageRow, created) => {
+                        console.log(messageRow);
                         push.emit('msg', messageRow.get({
                             plain: true
-                        }));
+                        }), 'bulletin_alert');
                         req.flash('success', 'Push message successful');
                         res.redirect('dashboard');
                     })

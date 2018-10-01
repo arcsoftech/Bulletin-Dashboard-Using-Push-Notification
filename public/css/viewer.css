@@ -2241,11 +2241,126 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
 }
 
 #messageBoardContent {
-  background: rgba(255,0,0,0.5);
+  height: 80%;
   width: 1080px;
   margin: 50px auto;
-  padding: 10px 50px;
-  border-radius: 5px;
+  padding: 20px 50px;
+  /*border-radius: 5px;*/
   color: #fff;
   font-size: 30px;
+  background-color: #39a5dc;
+  -webkit-animation: blinkRed 2s infinite;
+  -moz-animation: blinkRed 0.5s infinite;
+  -ms-animation: blinkRed 0.5s infinite;
+  -o-animation: blinkRed 0.5s infinite;
+  animation: blinkRed 2s infinite;
+}
+
+#messageBoardContent::before {
+  content: '';
+  box-shadow: 0 0 0 0 rgba(255,255,255,0.1);
+  margin: 50px auto;
+  /*border-radius: 5px;*/
+  opacity: 0;
+  -webkit-animation: blurclr 3s infinite;
+  -moz-animation: blurclr 3s infinite;
+  animation: blurclr 3s infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 1180px;
+  height: 86%;
+}
+
+/*#messageBoardContent::after {
+  position: absolute;
+  top: 0;
+  bottom: 7px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  content: '';
+  width: 16px;
+  height: 16px;
+  border-left: 1px solid #3273a7;
+  border-bottom: 1px solid #3273a7;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  box-sizing: border-box;
+}*/
+
+
+@-webkit-keyframes blinkRed {
+    from { background-color: #39a5dc; color: #fff;}
+    50% { background-color: #0088ce; color: #d3d3d3;}
+    to { background-color: #39a5dc;  color: #fff }
+}
+@-moz-keyframes blinkRed {
+    from { background-color: #39a5dc;  color: #fff}
+    50% { background-color: #0088ce;}
+    to { background-color: #39a5dc;  color: #fff}
+}
+@-ms-keyframes blinkRed {
+    from { background-color: #39a5dc;  color: #fff}
+    50% { background-color: #0088ce;}
+    to { background-color: #39a5dc;  color: #fff}
+}
+@-o-keyframes blinkRed {
+    from { background-color: #39a5dc;  color: #fff}
+    50% { background-color: #0088ce;}
+    to { background-color: #39a5dc;  color: #fff}
+}
+@keyframes blinkRed {
+    from { background-color: #39a5dc;  color: #fff}
+    50% { background-color: #0088ce; color: #d3d3d3;}
+    to { background-color: #39a5dc;  color: #fff}
+}
+
+@-webkit-keyframes blurclr {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+    box-shadow: 0 0 0 60px rgba(57, 165, 220, 0.2);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes blurclr {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+    box-shadow: 0 0 0 60px rgba(57, 165, 220, 0.2);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes blurclr {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+    box-shadow: 0 0 0 60px rgba(57, 165, 220, 0.2);
+  }
+  100% {
+    opacity: 0;
+  }
 }

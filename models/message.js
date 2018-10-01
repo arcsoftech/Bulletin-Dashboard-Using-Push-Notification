@@ -5,7 +5,10 @@ module.exports =  (sequelize, Sequelize)=> {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-
+        type: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
         message: {
             type: Sequelize.STRING,
             notEmpty: true

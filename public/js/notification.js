@@ -6,7 +6,7 @@
     console.log('Message received. ', payload);
     const type = payload.data.type;
     window.localStorage.setItem('bulletinType', type);
-    if(type == 'message') {
+    if(type == 'bulletin_alert') {
       window.localStorage.setItem('bulletinMsg', JSON.stringify(payload.data.message));
       $('#messageBoardContent').html(payload.data.message);
       $('#outerContainer').hide();

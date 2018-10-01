@@ -307,23 +307,27 @@
   </div>  <!-- overlayContainer -->
 </div> <!-- outerContainer -->
 
-
 <div id="messageBoard" style="display: none;">
-  <div id="messageBoardContent"></div>
+  <div id="messageBoardContent">
+      {{ message }}
+  </div>
 </div>
-
-<div id="printContainer"></div>
+<input id="bulletinType" type="hidden" value="{{ type }}">
 
 <script type="text/javascript">
   $(document).ready(function(){
-    var type = window.localStorage.getItem('bulletinType');
-    if(type == 'message') {
+    var type = $('#bulletinType').val();
+    window.localStorage.setItem('bulletinType', type);
+
+    if (window.localStorage.getItem("bulletinMsg") !== null) {
       var msg = JSON.parse(window.localStorage.getItem('bulletinMsg'));
       $('#messageBoardContent').html(msg);
+    }
+
+    if(type == 'bulletin_alert') {
       $('#outerContainer').hide();
       $('#messageBoard').show();
     }
-
     setTimeout(function(){
       var min = parseInt($('#pageNumber').attr('min')),
           max = parseInt($('#pageNumber').attr('max')),
