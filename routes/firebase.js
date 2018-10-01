@@ -12,7 +12,18 @@ module.exports = Subscriptions => {
   router.use(bodyParser.json())
   router.post('/subid', firebaseController.POST.subscriptionHandler);
   router.get('/notify', (req, res) => {
-    push.emit('notify', "");
+    var message = {
+      data: {
+        score: '850',
+        time: '2:45'
+      },
+      notification: {
+        title: 'Message Alert',
+        body: 'Message alert from bulletin board',
+        icon: 'images/notify.png'
+      }
+    }
+    push.emit('notify', message);
     res.send("request accepted for notification")
   });
 
