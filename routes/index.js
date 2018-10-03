@@ -11,7 +11,7 @@ module.exports = (Passport, Messages, Subscriptions) => {
   router.get('/login', indexController.GET.loginHandler);
 
   /* GET Register page. */
-  router.get('/register', indexController.GET.registerHandler);
+  // router.get('/register', indexController.GET.registerHandler);
 
   /* GET Logout page. */
   router.get('/logout', indexController.GET.logoutHandler);
