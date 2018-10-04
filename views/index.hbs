@@ -330,12 +330,18 @@
     }
     else {
       setTimeout(function(){
+        var screenHeight = $(window).height();
+        var pageHeight = $('.textLayer').height();
+        var buffer = (screenHeight - pageHeight) / 2;
+        $('.pdfViewer .canvasWrapper').css('padding-top', buffer + 'px');
+
         var min = parseInt($('#pageNumber').attr('min')),
             max = parseInt($('#pageNumber').attr('max')),
             curr = parseInt($('#pageNumber').val());
 
         $('#thumbnailView a[href="#page=' + curr + '"]').click();
         setInterval(function() {
+          $('.pdfViewer .canvasWrapper').css('padding-top', buffer + 'px');
           if(curr == max) {
             $('#thumbnailView a[href="#page=' + min + '"]').click();
             curr = 1;
@@ -348,8 +354,8 @@
           else {
             curr++;
           }
-        }, 2000);
-      }, 3000);
+        }, 3500);
+      }, 1000);
     }
   });
 </script>

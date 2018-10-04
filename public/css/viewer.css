@@ -232,6 +232,7 @@
   background-clip: content-box;
   border-image: url(../images/shadow.png) 9 9 repeat;
   background-color: white;
+  height: 98vh !important;
 }
 
 .pdfViewer.removePageBorders .page {
