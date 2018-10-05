@@ -2365,3 +2365,9 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
     opacity: 0;
   }
 }
+
+#presentationMode {
+  position: absolute;
+  bottom: 0;
+  z-index: 9;
+}
